@@ -192,8 +192,15 @@ button:disabled { cursor: wait; opacity: .7; }
 @media (max-width: 480px) {
   .credibility-grid { grid-template-columns: 1fr; }
   .actions .button { width: 100%; }
-  .consent { right: 12px; bottom: 12px; width: calc(100% - 24px); }
-  .consent div button { width: 100%; }
+  .card-body { padding: 21px; }
+  .card-meta { flex-direction: column; gap: 5px; }
+  .card-links { gap: 10px; }
+  .consent { right: 8px; bottom: 8px; width: calc(100% - 16px); padding: 16px; }
+  .consent p { display: none; }
+  .consent div { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 7px; }
+  .consent div button { min-height: 40px; padding: 7px 9px; font-size: .82rem; }
+  .consent > a { font-size: .8rem; }
+  .cookie-settings { position: static; width: 100%; min-height: 44px; border-radius: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -23,7 +23,7 @@ export function CookiePreferences() {
   return <>
     {open && <aside className="consent" role="dialog" aria-modal="false" aria-labelledby="cookie-title">
       <strong id="cookie-title">Your privacy choices</strong>
-      <p>Essential storage keeps your preference. Optional Google Analytics loads only if you allow it.</p>
+      <p>Allow optional analytics? Your choice is saved and can be changed later.</p>
       <div><button onClick={() => save('accepted')}>Allow analytics</button><button className="secondary" onClick={() => save('declined')}>Reject analytics</button></div>
       <a href="/cookies">Read the cookie notice</a>
     </aside>}

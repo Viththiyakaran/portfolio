@@ -19,4 +19,4 @@ export const metadata: Metadata = {
   verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : undefined
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en-GB"><body><a className="skip-link" href="#main">Skip to main content</a><Header /><main id="main">{children}</main><Footer /><CookiePreferences /><Analytics /></body></html>; }
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en-GB"><body><a className="skip-link" href="#main">Skip to main content</a><Header /><main id="main">{children}</main><CookiePreferences /><Footer /><Analytics /></body></html>; }
