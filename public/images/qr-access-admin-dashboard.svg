@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">QR facility access dashboard concept</title>
+  <desc id="desc">A conceptual administration dashboard with access status, recent scans and audit activity.</desc>
+  <rect width="1200" height="675" fill="#173e31"/>
+  <rect x="54" y="48" width="1092" height="579" rx="30" fill="#f7f6f0"/>
+  <rect x="54" y="48" width="242" height="579" rx="30" fill="#174f3b"/>
+  <circle cx="104" cy="104" r="23" fill="#d6ed80"/>
+  <rect x="140" y="91" width="104" height="14" rx="7" fill="#fff"/>
+  <rect x="88" y="174" width="164" height="44" rx="12" fill="#d6ed80"/>
+  <rect x="88" y="244" width="130" height="12" rx="6" fill="#8eb09f"/>
+  <rect x="88" y="286" width="148" height="12" rx="6" fill="#8eb09f"/>
+  <rect x="88" y="328" width="118" height="12" rx="6" fill="#8eb09f"/>
+  <text x="344" y="112" fill="#17211b" font-family="Arial, sans-serif" font-size="31" font-weight="700">Facility access overview</text>
+  <text x="344" y="151" fill="#536158" font-family="Arial, sans-serif" font-size="18">Conceptual administration dashboard</text>
+  <rect x="344" y="196" width="226" height="142" rx="20" fill="#eaf0e7"/>
+  <rect x="594" y="196" width="226" height="142" rx="20" fill="#eaf0e7"/>
+  <rect x="844" y="196" width="248" height="142" rx="20" fill="#eaf0e7"/>
+  <text x="370" y="238" fill="#536158" font-family="Arial, sans-serif" font-size="17">Access status</text>
+  <text x="370" y="292" fill="#174f3b" font-family="Arial, sans-serif" font-size="34" font-weight="700">Authorised</text>
+  <text x="620" y="238" fill="#536158" font-family="Arial, sans-serif" font-size="17">Scans today</text>
+  <text x="620" y="292" fill="#17211b" font-family="Arial, sans-serif" font-size="42" font-weight="700">24</text>
+  <text x="870" y="238" fill="#536158" font-family="Arial, sans-serif" font-size="17">Review required</text>
+  <text x="870" y="292" fill="#17211b" font-family="Arial, sans-serif" font-size="42" font-weight="700">3</text>
+  <rect x="344" y="376" width="748" height="190" rx="20" fill="#fff" stroke="#d8ded7" stroke-width="2"/>
+  <text x="374" y="418" fill="#17211b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Recent access decisions</text>
+  <g fill="#536158" font-family="Arial, sans-serif" font-size="16">
+    <text x="374" y="463">09:42</text><text x="465" y="463">Visitor token</text><text x="890" y="463">Authorised</text>
+    <text x="374" y="507">09:31</text><text x="465" y="507">Expired token</text><text x="890" y="507">Rejected</text>
+    <text x="374" y="551">09:18</text><text x="465" y="551">Staff access</text><text x="890" y="551">Authorised</text>
+  </g>
+  <g stroke="#d8ded7"><line x1="374" y1="478" x2="1060" y2="478"/><line x1="374" y1="522" x2="1060" y2="522"/></g>
+</svg>

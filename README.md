@@ -1,135 +1,178 @@
-# Viththiyakaran Nadarajah — portfolio
+# Viththiyakaran Nadarajah - portfolio
 
 SEO-first Next.js portfolio for a software developer and IT support professional based in Newtown, Powys, Wales.
 
-## Run locally
+## Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Use `npm run seo:audit`, `npm run lint` and `npm run build` before publishing. Copy `.env.example` to `.env.local` only when verification or analytics values are available.
+Run the complete release check before publishing:
+
+```bash
+npm run verify
+```
+
+This runs ESLint, TypeScript checking, content tests, the SEO audit and the production build.
+
+## Netlify deployment
+
+`netlify.toml` configures the Next.js build, Node 20, security headers and permanent redirects from:
+
+- `https://www.viththiyakaran.co.uk/*`
+- `https://dazzling-khapse-99460c.netlify.app/*`
+
+to `https://viththiyakaran.co.uk`.
+
+Middleware adds `X-Robots-Tag: noindex, nofollow, noarchive` to other `*.netlify.app` hosts used for deploy previews and branch deploys.
+
+Configure these production variables:
+
+```text
+NEXT_PUBLIC_SITE_URL=https://viththiyakaran.co.uk
+NEXT_PUBLIC_GA_MEASUREMENT_ID=
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
+NEXT_PUBLIC_LINKEDIN_URL=
+```
+
+Netlify provides `URL` to the server-side contact route. `/api/contact` validates requests, checks a honeypot and basic rate limit, then passes accepted submissions to the detected Netlify form in `public/netlify-contact.html`.
 
 ## SEO architecture
 
 ### Metadata and canonical URLs
 
-`lib/seo.ts` is the reusable metadata factory. Every indexable route provides a unique title, description, canonical URL, robots rule, Open Graph metadata and Twitter card. The production base is `https://viththiyakaran.co.uk`; canonical URLs never use query parameters. Next.js normalises trailing slashes, and `next.config.ts` permanently redirects the `www` host to the non-`www` domain. The hosting platform and DNS must also force HTTP to HTTPS before launch.
+`lib/seo.ts` is the reusable metadata factory. Every indexable route supplies a unique title, description, self-referencing canonical, robots rule, Open Graph metadata and Twitter card. `lib/site.ts` reads the base from `NEXT_PUBLIC_SITE_URL` and safely defaults to `https://viththiyakaran.co.uk`.
+
+Canonical route paths never include UTM parameters. Next.js normalises trailing slashes. Netlify and Next.js both protect the non-`www` apex as the canonical production host.
 
 ### Sitemap, robots and RSS
 
-- `/sitemap.xml` is generated from static routes, published posts, projects, services and useful categories. It uses known content update dates and excludes drafts/noindex routes.
-- `/robots.txt` allows public resources, blocks internal/API/query variants and references the production sitemap.
+- `/sitemap.xml` contains public static pages, published posts, projects, services and useful categories with known modification dates.
+- `/robots.txt` allows public resources, excludes internal/form/query variants and references the production sitemap.
 - `/rss.xml` contains published articles with title, description, author, publication date and canonical URL.
+- The root layout includes RSS autodiscovery metadata.
 
-Do not add invented priority or change-frequency values. Update the source content date whenever a page receives a meaningful change.
+Drafts and noindex routes are excluded.
 
 ### Structured data
 
-Reusable JSON-LD rendering lives in `components/json-ld.tsx`. The site implements:
+Reusable JSON-LD rendering lives in `components/json-ld.tsx`.
 
-- Home: `Person`, `WebSite`, `ProfilePage`
+- Home/About: `Person`, `WebSite`, `ProfilePage`
 - Blog: `Blog`, `BreadcrumbList`
-- Articles: `BlogPosting`, author, dates, image and `BreadcrumbList`
+- Articles: `BlogPosting`, author, dates, image, reading time and `BreadcrumbList`
 - Projects: `CreativeWork` and `BreadcrumbList`
 - Services: `Service` and `BreadcrumbList`
 
-Structured data must continue to match visible claims. Do not add ratings, reviews, qualifications, awards, employer details, prices or business schema without evidence.
+Structured data must match visible claims. Do not add ratings, reviews, awards, employer details, prices or qualifications without evidence.
 
-### Blog content fields
+### Blog content
 
-Article records in `lib/content.ts` support SEO title, title, description, slug, published and updated dates, author, category, tags, featured image, featured-image alt, draft status, related projects, related posts, introduction and structured sections. Canonical URLs are derived from the production domain so authors cannot accidentally publish a tracking URL as canonical.
+Typed records in `lib/content.ts` support title, SEO title, description, slug, publication and update dates, author, category, tags, featured image and alt text, draft status, related projects/posts, introduction and structured sections. Reading time is calculated from visible content.
 
-Only `publishedPosts` are used for static generation, sitemap, RSS and article listings. Long posts render a table of contents, one H1, logical H2 sections, author details, related projects and previous/next navigation. Add category pages only when they have a useful introduction and enough durable content; do not generate thin tag archives.
+Only `publishedPosts` are used for static generation, sitemap, RSS and listings.
 
-### Project content fields
+### Project content
 
-Project records include the problem, context, users, requirements, solution, architecture, technologies, security considerations, challenges, decisions, outcomes and lessons. Current entries are explicitly labelled architecture case studies. Replace conceptual visuals with properly licensed, optimised screenshots only when a real implementation exists.
+Project records include:
+
+- honest status and personal role;
+- implemented and planned technologies;
+- problem, context, users and requirements;
+- solution and proposed architecture;
+- security and accessibility considerations;
+- decisions, trade-offs, challenges, outcomes and lessons;
+- optional live demo and repository links.
+
+Do not label a project `Live` without a working deployment. Replace conceptual SVG visuals with original, optimised screenshots only when genuine product imagery exists.
+
+## Images
 
 For new images:
 
-- use descriptive lower-case filenames such as `qr-access-admin-dashboard.webp`;
+- use descriptive filenames;
 - provide accurate alt text, or empty alt text for decoration;
-- specify intrinsic width and height;
-- use responsive Next.js Image output where appropriate;
-- lazy-load content images below the fold;
-- do not reuse the page title as every alt value.
+- specify width and height;
+- use responsive Next.js Image output;
+- lazy-load below-the-fold images;
+- prefer WebP or AVIF for raster screenshots.
 
-### Open Graph images
+`/api/og` generates a branded 1200 x 630 fallback Open Graph image.
 
-`/api/og` generates a branded 1200×630 image containing the page title, name and domain. Metadata uses it as a fallback for every route. A page can pass a more specific image title; real article or project imagery can replace the fallback later.
+## Analytics and consent
 
-## Google Search Console after deployment
+GA4 loads only when all conditions are true:
 
-1. Open Google Search Console and add a **Domain property** for `viththiyakaran.co.uk`.
-2. Add the supplied DNS TXT record with the DNS provider and wait for verification.
-3. Optionally set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` to the verification token; metadata is emitted only when the variable exists.
-4. Submit `https://viththiyakaran.co.uk/sitemap.xml`.
-5. Inspect the homepage, primary project pages, service pages and published articles with URL Inspection.
-6. Request indexing after the canonical HTTPS deployment is live—not while preview URLs are in use.
-7. Monitor indexing, Core Web Vitals, clicks, impressions and queries. Investigate exclusions rather than repeatedly requesting indexing.
+- the site is running in production;
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` exists;
+- the visitor selected Allow analytics.
 
-## Analytics, consent and event measurement
+Implemented events:
 
-Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` to a GA4 measurement ID. The analytics script is not loaded until a visitor chooses **Allow analytics** in the consent panel. A declined choice is stored locally and no GA request is made.
-
-The event helper supports these recommended names:
-
-- `page_view` (handled by GA configuration; add route-change tracking if navigation behaviour requires it)
-- `blog_post_view`, `project_view`
+- `page_view`
+- `project_view`
+- `blog_post_view`
 - `cv_download`
-- `contact_submission`, `service_enquiry`
-- `github_click`, `linkedin_click`, `external_link_click`
+- `github_click`
+- `linkedin_click`
+- `outbound_link_click`
+- `contact_form_start`
+- `contact_form_submit`
+- `job_opportunity_enquiry`
+- `service_enquiry`
 
-The contact event is implemented. Add tracked CV, GitHub and LinkedIn links when their verified URLs/assets are supplied. Never send message contents, email addresses or other personal data to analytics.
+Form success events run only after server confirmation. Never send names, email addresses or message text to analytics.
 
-Canonical URLs omit UTM values. Suggested sharing links:
+Suggested UTM values:
 
-- LinkedIn: `?utm_source=linkedin&utm_medium=social&utm_campaign=portfolio`
 - CV: `?utm_source=cv&utm_medium=job_application&utm_campaign=software_developer`
+- LinkedIn: `?utm_source=linkedin&utm_medium=social&utm_campaign=portfolio`
 - Email: `?utm_source=email&utm_medium=direct_outreach&utm_campaign=portfolio`
-- Other social: `?utm_source=platform_name&utm_medium=social&utm_campaign=portfolio`
 - Job application: `?utm_source=employer_or_board&utm_medium=job_application&utm_campaign=role_name`
 
-Use lower-case, stable values and never put personal recipient data into UTM parameters.
+## Privacy, cookies and contact
 
-## Redirects and deployment
+- `/privacy` explains contact processing and analytics.
+- `/cookies` explains preference storage and optional GA4.
+- Visitors can accept, reject and later change analytics preferences.
+- `/api/contact` provides server validation, request-size checking, honeypot handling and an in-memory rate-limit guard.
 
-`next.config.ts` contains permanent redirects for `www`, legacy `/work/:slug` and `/articles/:slug` routes. Add explicit old-to-new mappings when real legacy URLs are known. Do not redirect unrelated missing URLs to the homepage; the custom `not-found.tsx` returns the framework’s true 404 response.
+The in-memory limiter is a first defensive layer, not a durable distributed rate limiter. For sustained traffic, add Netlify Edge controls, a durable store or a specialist anti-spam service.
 
-At the hosting layer:
+## Google Search Console
 
-1. Point the apex domain at the production deployment.
-2. Attach `www` and enforce its 308 redirect to the apex domain.
-3. Enforce HTTP to HTTPS for both hosts.
-4. Prevent preview/development deployments from being indexed using platform access controls or an `X-Robots-Tag: noindex` header.
+1. Add a Domain property for `viththiyakaran.co.uk`.
+2. Verify ownership through the supplied DNS TXT record.
+3. Optionally set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`.
+4. Submit `https://viththiyakaran.co.uk/sitemap.xml`.
+5. Inspect the homepage, projects, services and published articles.
+6. Request indexing after the final production deployment and redirects are confirmed.
+7. Monitor indexing, queries, clicks, impressions and Core Web Vitals.
 
 ## Audit every new page
 
-Before publishing:
-
-1. Confirm one visible H1 and logical H2/H3 hierarchy.
-2. Add a unique, intent-focused title and 140–160 character description where practical.
+1. Confirm one visible H1 and logical heading structure.
+2. Add a unique title and useful description.
 3. Confirm the canonical route and index/noindex choice.
-4. Validate Open Graph output and all visible image alt text/dimensions.
+4. Validate Open Graph output and image alt text/dimensions.
 5. Add truthful structured data that matches visible content.
-6. Add descriptive internal links from and to relevant pages.
-7. Confirm draft content is absent from sitemap, RSS and static parameters.
-8. Run `npm run seo:audit`, `npm run lint` and `npm run build`.
-9. Test keyboard navigation, mobile layouts, forms, code blocks and tables.
-10. Run Lighthouse against production-mode pages. Record scores only from an actual run.
+6. Add descriptive internal links.
+7. Ensure drafts are absent from sitemap, RSS and static parameters.
+8. Run `npm run verify`.
+9. Test keyboard, mobile and form behaviour.
+10. Run Lighthouse against the deployed production build and record only measured results.
 
-## Current content placeholders
+## Content still required
 
-Before presenting this as a final professional record, supply and verify:
-
-- employment history, dates and responsibilities;
-- qualifications or certifications;
-- real project status, repositories, screenshots and measured outcomes;
-- CV asset and verified GitHub/LinkedIn profile URLs;
-- final contact handling or privacy notice if a server-side form provider is introduced;
+- verified software engineering employer, dates and responsibilities;
+- verified technical support employer, dates and responsibilities;
+- B.Tech institution, dates and classification;
+- MSc IT dates, modules and completion status;
+- real project repositories, implementation status, screenshots and measured outcomes;
+- verified LinkedIn profile URL;
 - analytics and Search Console IDs;
-- any genuine legacy URLs requiring redirects.
+- genuine legacy URLs requiring redirects.
 
-The current copy deliberately avoids making up those facts.
+The current site and generated CV mark missing facts rather than inventing them.

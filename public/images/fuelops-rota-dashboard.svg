@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">FuelOps rota planning dashboard concept</title>
+  <desc id="desc">A conceptual weekly rota showing shift coverage, availability and a scheduling conflict.</desc>
+  <rect width="1200" height="675" fill="#173e31"/>
+  <rect x="52" y="48" width="1096" height="579" rx="30" fill="#f7f6f0"/>
+  <text x="96" y="112" fill="#17211b" font-family="Arial, sans-serif" font-size="31" font-weight="700">Weekly rota</text>
+  <text x="96" y="150" fill="#536158" font-family="Arial, sans-serif" font-size="18">Coverage and availability concept</text>
+  <rect x="925" y="82" width="170" height="48" rx="24" fill="#174f3b"/>
+  <text x="959" y="113" fill="#fff" font-family="Arial, sans-serif" font-size="17" font-weight="700">Publish rota</text>
+  <g font-family="Arial, sans-serif" font-size="15" fill="#536158">
+    <text x="250" y="209">MON</text><text x="380" y="209">TUE</text><text x="510" y="209">WED</text><text x="640" y="209">THU</text><text x="770" y="209">FRI</text><text x="900" y="209">SAT</text><text x="1030" y="209">SUN</text>
+  </g>
+  <g stroke="#d8ded7" fill="#fff">
+    <rect x="88" y="232" width="1000" height="294" rx="20"/>
+    <line x1="218" y1="232" x2="218" y2="526"/><line x1="348" y1="232" x2="348" y2="526"/><line x1="478" y1="232" x2="478" y2="526"/><line x1="608" y1="232" x2="608" y2="526"/><line x1="738" y1="232" x2="738" y2="526"/><line x1="868" y1="232" x2="868" y2="526"/><line x1="998" y1="232" x2="998" y2="526"/>
+    <line x1="88" y1="330" x2="1088" y2="330"/><line x1="88" y1="428" x2="1088" y2="428"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#17211b">
+    <text x="112" y="284">Morning</text><text x="112" y="382">Afternoon</text><text x="112" y="480">Evening</text>
+  </g>
+  <g fill="#eaf0e7">
+    <rect x="235" y="251" width="96" height="58" rx="12"/><rect x="365" y="251" width="96" height="58" rx="12"/><rect x="495" y="349" width="96" height="58" rx="12"/><rect x="625" y="349" width="96" height="58" rx="12"/><rect x="755" y="447" width="96" height="58" rx="12"/>
+  </g>
+  <g fill="#174f3b" font-family="Arial, sans-serif" font-size="14" font-weight="700">
+    <text x="255" y="285">Covered</text><text x="385" y="285">Covered</text><text x="515" y="383">Covered</text><text x="645" y="383">Covered</text><text x="775" y="481">Covered</text>
+  </g>
+  <rect x="885" y="349" width="96" height="58" rx="12" fill="#fff0d4" stroke="#9b6114" stroke-width="2"/>
+  <text x="901" y="374" fill="#7a4a0b" font-family="Arial, sans-serif" font-size="13" font-weight="700">Conflict</text>
+  <text x="901" y="393" fill="#7a4a0b" font-family="Arial, sans-serif" font-size="12">Overlap</text>
+  <rect x="88" y="554" width="354" height="40" rx="12" fill="#eaf0e7"/>
+  <text x="110" y="580" fill="#536158" font-family="Arial, sans-serif" font-size="15">Coverage: 14 of 16 planned shifts</text>
+</svg>

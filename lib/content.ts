@@ -1,14 +1,17 @@
 export type Project = {
-  slug: string; title: string; summary: string; description: string; updated: string; technologies: string[]; type: 'CreativeWork' | 'SoftwareApplication';
-  problem: string; context: string; users: string; requirements: string[]; solution: string; architecture: string; security: string[]; challenges: string; decisions: string[]; outcomes: string; lessons: string;
+  slug: string; title: string; summary: string; description: string; updated: string; technologies: string[]; plannedTechnologies: string[]; type: 'CreativeWork' | 'SoftwareApplication';
+  status: 'Live' | 'In development' | 'Prototype' | 'Architecture case study' | 'Concept'; role: string; image: string; imageAlt: string;
+  problem: string; context: string; users: string; requirements: string[]; solution: string; architecture: string; security: string[]; accessibility: string[]; challenges: string; decisions: string[]; tradeoffs: string[]; outcomes: string; lessons: string;
+  demoUrl?: string; repositoryUrl?: string;
 };
 
 export const projects: Project[] = [
   {
-    slug: 'qr-facility-access-system', title: 'QR Facility Access Management System', updated: '2026-07-15', type: 'CreativeWork',
+    slug: 'qr-facility-access-system', title: 'QR Facility Access Management System', updated: '2026-07-16', type: 'CreativeWork',
+    status: 'Architecture case study', role: 'Solution designer and full-stack developer', image: '/images/qr-access-admin-dashboard.svg', imageAlt: 'Conceptual QR facility access dashboard showing access status, recent scans and audit activity',
     summary: 'A privacy-conscious architecture case study for managing QR-based facility access, attendance and auditable administration.',
     description: 'Explore a .NET and React architecture case study for secure QR facility access, role-based administration and practical operational support.',
-    technologies: ['ASP.NET Core', 'React', 'PostgreSQL', 'Azure', 'OpenID Connect'],
+    technologies: ['ASP.NET Core', 'React', 'PostgreSQL'], plannedTechnologies: ['Azure', 'OpenID Connect'],
     problem: 'Paper registers and shared spreadsheets make access records slow to reconcile and difficult to audit. Operators need a quick check-in flow without exposing personal information in a QR code.',
     context: 'This is a portfolio architecture case study, not a claim about a deployed client system. It demonstrates how I would turn an operational requirement into a supportable business application.',
     users: 'Visitors need a fast check-in; reception staff need clear status feedback; authorised administrators need reporting and exception handling; support teams need traceable diagnostics.',
@@ -16,16 +19,19 @@ export const projects: Project[] = [
     solution: 'The proposed flow exchanges a short-lived opaque token for a server-side access decision. A React interface gives staff a focused scan-and-confirm experience, while an ASP.NET Core API owns authorisation, validation and audit events.',
     architecture: 'A server-rendered web shell loads the scanner only when required. The API separates identity, access policy and reporting modules. PostgreSQL stores transactional data; append-only audit events support investigation without becoming the operational source of truth.',
     security: ['Short-lived, single-purpose QR tokens', 'Least-privilege roles enforced in the API', 'Rate limiting and replay detection', 'Encrypted transport and managed secrets', 'Retention rules for access and audit records'],
+    accessibility: ['Keyboard-operable administration flows', 'Status communicated with text and icons, not colour alone', 'Clear focus order and error summaries', 'Touch targets sized for reception tablets and phones'],
     challenges: 'The central trade-off is speed versus assurance. A scan must feel immediate, but cached or offline decisions can become unsafe when access is revoked.',
     decisions: ['Prefer online authorisation for final access decisions', 'Use opaque tokens rather than encoded personal data', 'Log decision reasons without recording unnecessary sensitive data', 'Keep recovery workflows explicit for support staff'],
+    tradeoffs: ['Online authorisation improves revocation accuracy but depends on connectivity', 'Detailed audit events aid support but require strict retention and access controls', 'A focused scanner interface reduces errors but moves advanced controls into separate administration screens'],
     outcomes: 'The design produces a testable boundary between identity, policy and the user interface. Success would be measured with check-in completion time, failed-scan reasons, support volume and audit completeness after a real pilot.',
     lessons: 'Operational exceptions deserve first-class design. Expired codes, duplicate scans and temporary outages need understandable recovery paths, not generic error messages.'
   },
   {
-    slug: 'fuelops-rota-planning', title: 'FuelOps Rota Planning', updated: '2026-07-15', type: 'CreativeWork',
+    slug: 'fuelops-rota-planning', title: 'FuelOps Rota Planning', updated: '2026-07-16', type: 'CreativeWork',
+    status: 'Concept', role: 'Product designer and front-end developer', image: '/images/fuelops-rota-dashboard.svg', imageAlt: 'Conceptual weekly rota dashboard showing shift coverage, availability and a scheduling conflict',
     summary: 'A business software concept for clear weekly rota planning, shift validation and staff availability.',
     description: 'A practical business software case study covering rota planning, validation, accessibility and maintainable React application architecture.',
-    technologies: ['TypeScript', 'React', '.NET', 'SQL', 'Playwright'],
+    technologies: ['TypeScript', 'React'], plannedTechnologies: ['.NET API', 'SQL', 'Playwright'],
     problem: 'Small teams often coordinate shifts through messages and spreadsheets, creating overlaps, uncovered periods and uncertainty about the current version.',
     context: 'This portfolio concept explores software automation for small businesses. It is an honest technical design exercise rather than a published customer result.',
     users: 'Managers prepare schedules; team members confirm availability; support staff investigate validation or notification failures.',
@@ -33,8 +39,10 @@ export const projects: Project[] = [
     solution: 'A constraint-aware planning screen surfaces conflicts before publication. The API treats drafts and published rotas as distinct states and records who made each material change.',
     architecture: 'A React planning interface consumes a versioned .NET API. Domain rules live in the application layer rather than UI components. SQL transactions protect publication, and a background queue would handle notifications.',
     security: ['Role-based schedule editing', 'Tenant-scoped data access', 'Audit events for publication and amendments', 'Server-side validation of every change', 'Minimal personal data in notifications'],
+    accessibility: ['Form-based editing alongside drag and drop', 'Keyboard navigation across the weekly schedule', 'Conflict messages linked to affected fields', 'Printable views with readable contrast and text labels'],
     challenges: 'Dense scheduling interfaces can become inaccessible. Drag-and-drop alone is insufficient, especially for keyboard users and small screens.',
     decisions: ['Provide form-based editing alongside direct manipulation', 'Validate on both client and server', 'Use optimistic concurrency when publishing', 'Keep notification delivery outside the scheduling transaction'],
+    tradeoffs: ['A dense weekly view improves comparison but requires a simplified mobile view', 'Optimistic updates feel faster but need clear conflict recovery', 'Separating notification delivery improves reliability but introduces asynchronous status'],
     outcomes: 'The design makes schedule state and conflicts explicit. A live implementation would measure uncovered shifts, amendment frequency, publishing time and notification delivery—not invent productivity claims.',
     lessons: 'A useful planning tool is built around exceptions and clarity. Visual polish matters, but trustworthy validation and an understandable history matter more.'
   }
@@ -71,9 +79,14 @@ export const posts: Post[] = [
 ];
 
 export const services = [
-  { slug: 'website-development', title: 'Website Development', description: 'Accessible, fast website development for small businesses in Newtown, Powys and across Wales, with maintainable content and SEO foundations.', audience: 'Small organisations that need a clear, credible website without unnecessary platform complexity.', deliverables: ['Content and information architecture', 'Responsive, accessible interface', 'Technical SEO and analytics-ready measurement', 'Deployment guidance and maintainable documentation'] },
-  { slug: 'business-software-automation', title: 'Business Software & Automation', description: 'Practical business software development and workflow automation for small teams in Wales and UK remote clients.', audience: 'Teams replacing repetitive spreadsheets, disconnected forms or fragile manual hand-offs.', deliverables: ['Workflow discovery', 'Small, testable application increments', 'Secure integrations and validation', 'Support documentation and measured handover'] },
-  { slug: 'technical-support', title: 'Technical & Application Support', description: 'Structured technical support, application troubleshooting and operational documentation for organisations in Wales and remotely across the UK.', audience: 'Teams that need calm investigation, clearer diagnostics and durable fixes for recurring application problems.', deliverables: ['Incident investigation', 'Knowledge-base and runbook improvements', 'Root-cause analysis', 'Monitoring and supportability recommendations'] }
+  { slug: 'website-development', title: 'Website Development', enquiryType: 'Website project', description: 'Accessible, fast website development for small businesses in Newtown, Powys and across Wales, with maintainable content and SEO foundations.', audience: 'Small organisations that need a clear, credible website without unnecessary platform complexity.', problems: ['An outdated or difficult-to-use website', 'Important services that are hard to find on mobile', 'Slow pages or unclear search metadata', 'Content that is difficult for the team to maintain'], deliverables: ['Content and information architecture', 'Responsive, accessible interface', 'Technical SEO and analytics-ready measurement', 'Deployment guidance and maintainable documentation'] },
+  { slug: 'business-software-automation', title: 'Business Software and Automation', enquiryType: 'Business software', description: 'Practical business software development and workflow automation for small teams in Wales and UK remote clients.', audience: 'Teams replacing repetitive spreadsheets, disconnected forms or fragile manual hand-offs.', problems: ['Repeated manual data entry', 'Conflicting spreadsheet versions', 'Unclear approval or hand-off status', 'Processes that are difficult to audit or support'], deliverables: ['Workflow discovery', 'Small, testable application increments', 'Secure integrations and validation', 'Support documentation and measured handover'] },
+  { slug: 'technical-support', title: 'Technical and Application Support', enquiryType: 'IT or application support', description: 'Structured technical support, application troubleshooting and operational documentation for organisations in Wales and remotely across the UK.', audience: 'Teams that need calm investigation, clearer diagnostics and durable fixes for recurring application problems.', problems: ['Recurring incidents without a clear cause', 'Users receiving vague or unsafe error messages', 'Missing support documentation and ownership', 'Poor diagnostic information during application failures'], deliverables: ['Incident investigation', 'Knowledge-base and runbook improvements', 'Root-cause analysis', 'Monitoring and supportability recommendations'] }
 ] as const;
 
 export const publishedPosts = posts.filter((post) => !post.draft);
+
+export const readingTime = (post: Post) => {
+  const words = [post.intro, ...post.sections.flatMap((section) => [section.heading, ...section.paragraphs])].join(' ').trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / 220));
+};

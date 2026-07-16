@@ -1,0 +1,32 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_PUBLIC_SITE_URL = "https://viththiyakaran.co.uk"
+
+[[redirects]]
+  from = "https://www.viththiyakaran.co.uk/*"
+  to = "https://viththiyakaran.co.uk/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://dazzling-khapse-99460c.netlify.app/*"
+  to = "https://viththiyakaran.co.uk/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    X-Frame-Options = "SAMEORIGIN"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-store"
