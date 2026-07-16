@@ -7,7 +7,7 @@ Date: 16 July 2026
 - The homepage hero was single-column, visually oversized and left useful space empty.
 - Recruiter-focused details such as UK work status, qualifications, previous engineering/support experience and current operational strengths were missing.
 - Project and blog cards relied heavily on text, used fixed three-column grids and did not expose status, role, reading time or implemented-versus-planned technology.
-- There was no downloadable CV or verified LinkedIn link.
+- There was no verified LinkedIn link.
 - The contact form opened `mailto:` and had no server validation, error summary, consent, honeypot or organisation field.
 - Privacy and cookie pages were absent, and analytics consent could not be changed after the first choice.
 - The canonical origin was correct, but it was hard-coded and the Netlify production subdomain returned `200`, creating a duplicate host.
@@ -22,7 +22,7 @@ Main groups:
 - Layout/UI: `app/globals.css`, `app/layout.tsx`, homepage, About, Experience, Projects, Blog, Services and Contact routes
 - Components: header, footer, analytics, contact form, cookie preferences, project card and blog card
 - New routes: `/api/contact`, `/privacy`, `/cookies`
-- Assets: two descriptive project SVG visuals and `viththiyakaran-nadarajah-cv.pdf`
+- Assets: two descriptive project SVG visuals
 - Validation: `tests/content.test.ts`, `scripts/generate-cv.py`
 - Documentation: `README.md`, this implementation report
 
@@ -71,7 +71,6 @@ Main groups:
 - `page_view`
 - `project_view`
 - `blog_post_view`
-- `cv_download`
 - `github_click`
 - `linkedin_click`
 - `outbound_link_click`
@@ -120,7 +119,6 @@ No reviews, ratings, employers, awards, prices or unsupported business schema we
 - `npm run build`: passed and generated 28 pages/routes
 - Local endpoint checks: sitemap `200`, robots `200`, RSS `200`, CV `200`, missing route `404`
 - Contact API: invalid payload `400`, honeypot payload `200`, valid local payload `503` by design because Netlify's `URL` variable exists only in deployment
-- CV: rendered to PNG and visually inspected with no clipping or layout defects
 - Desktop homepage and Projects screenshots: inspected after local rendering
 
 ## 12. Lighthouse
@@ -139,7 +137,7 @@ Lighthouse was not run. No Lighthouse scores are claimed.
 
 ## 14. Missing personal content to provide
 
-Provide the verified details above plus any preferred telephone number, final CV wording and genuine project evidence. The generated CV is intentionally factual but incomplete.
+Provide the verified details above plus any preferred telephone number and genuine project evidence.
 
 ## 15. Incomplete or deployment-blocked requirements
 
@@ -169,7 +167,7 @@ Provide the verified details above plus any preferred telephone number, final CV
 3. Confirm `https://dazzling-khapse-99460c.netlify.app/test` redirects to the apex domain.
 4. Open a deploy-preview URL and confirm `X-Robots-Tag: noindex, nofollow, noarchive`.
 5. Check `/`, `/about`, `/experience`, `/projects`, one project, `/services`, one service, `/blog`, one article, `/contact`, `/privacy`, `/cookies` and a missing route.
-6. Check `/sitemap.xml`, `/robots.txt`, `/rss.xml`, `/api/og` and the CV download.
+6. Check `/sitemap.xml`, `/robots.txt`, `/rss.xml` and `/api/og`.
 7. Submit invalid and valid contact forms; confirm accessible messages and Netlify delivery.
 8. Accept, reject and later change cookie preferences; confirm GA loads only after acceptance.
 9. Inspect canonical, Open Graph and structured-data output on representative routes.

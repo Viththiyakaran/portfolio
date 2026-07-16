@@ -114,7 +114,6 @@ Implemented events:
 - `page_view`
 - `project_view`
 - `blog_post_view`
-- `cv_download`
 - `github_click`
 - `linkedin_click`
 - `outbound_link_click`
@@ -175,4 +174,4 @@ The in-memory limiter is a first defensive layer, not a durable distributed rate
 - analytics and Search Console IDs;
 - genuine legacy URLs requiring redirects.
 
-The current site and generated CV mark missing facts rather than inventing them.
+The current site marks missing facts rather than inventing them.

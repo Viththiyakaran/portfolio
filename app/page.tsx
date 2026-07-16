@@ -29,8 +29,7 @@ export default function HomePage() {
         <p className="eyebrow">Viththiyakaran Nadarajah · Newtown, Powys, Wales</p>
         <h1>Software developer and IT support professional in Wales</h1>
         <p className="lede">I build practical .NET and React applications, support business systems and design software around real operational requirements.</p>
-        <p className="work-status"><span aria-hidden="true">✓</span> Right to work in the UK — no sponsorship required</p>
-        <div className="actions"><Link className="button" href="/projects">View my projects</Link><a className="button secondary" href="/viththiyakaran-nadarajah-cv.pdf" download>Download CV</a></div>
+        <div className="actions"><Link className="button" href="/projects">View my projects</Link><Link className="button secondary" href="/contact">Contact me</Link></div>
         <nav className="text-links" aria-label="Professional links"><a href={site.github} rel="me noopener">GitHub</a>{site.linkedin && <a href={site.linkedin} rel="me noopener">LinkedIn</a>}<Link href="/contact">Contact</Link></nav>
       </div>
       <aside className="hero-card" aria-label="Professional profile summary">

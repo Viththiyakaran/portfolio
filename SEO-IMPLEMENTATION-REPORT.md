@@ -40,7 +40,7 @@ Every route receives Open Graph and Twitter summary-card metadata. `/api/og` gen
 
 ## 8. Analytics events
 
-GA4 loads only after explicit analytics consent and only when `NEXT_PUBLIC_GA_MEASUREMENT_ID` exists. Implemented events: `page_view`, `blog_post_view`, `project_view`, `contact_submission`, `service_enquiry`, `cv_download`, `github_click`, `linkedin_click` and `external_link_click`. CV/GitHub/LinkedIn events will begin firing when verified links are added.
+GA4 loads only after explicit analytics consent and only when `NEXT_PUBLIC_GA_MEASUREMENT_ID` exists. Implemented events include page, blog, project, contact, service and outbound-link interactions. GitHub and LinkedIn events begin firing when verified links are available.
 
 ## 9. Performance checks
 

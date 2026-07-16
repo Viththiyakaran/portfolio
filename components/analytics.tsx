@@ -31,7 +31,6 @@ export function Analytics() {
       const anchor = (event.target as Element).closest('a');
       if (!anchor?.href) return;
       const url = new URL(anchor.href, window.location.href);
-      if (url.pathname.toLowerCase().endsWith('.pdf')) trackEvent('cv_download', { link_url: url.href });
       if (url.hostname.includes('github.com')) trackEvent('github_click', { link_url: url.href });
       if (url.hostname.includes('linkedin.com')) trackEvent('linkedin_click', { link_url: url.href });
       if (url.origin !== window.location.origin) trackEvent('outbound_link_click', { link_url: url.href });

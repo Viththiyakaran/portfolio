@@ -24,7 +24,6 @@ const duplicate=(field:'title'|'description')=>{const seen=new Map<string,string
 for(const p of publishedPosts){if(p.draft)errors.push(`${p.slug}: draft included in published posts`);if(!p.featuredImageAlt)errors.push(`${p.slug}: missing featured image alt`);if(!p.sections.length)errors.push(`${p.slug}: empty article`)}
 for(const p of projects){if(!p.status)errors.push(`${p.slug}: missing status`);if(!p.role)errors.push(`${p.slug}: missing role`);if(!p.imageAlt)errors.push(`${p.slug}: missing project image alt`);if(!p.accessibility.length)errors.push(`${p.slug}: missing accessibility considerations`);for(const related of publishedPosts.filter(x=>x.relatedProjects.includes(p.slug))){if(!related)errors.push(`${p.slug}: invalid related article`)}}
 if(site.url !== productionUrl) errors.push(`site URL must resolve to ${productionUrl} during the production audit`);
-if(!existsSync('public/viththiyakaran-nadarajah-cv.pdf'))errors.push('downloadable CV is missing');
 if(!existsSync('netlify.toml'))errors.push('netlify.toml is missing');
 else{const netlify=readFileSync('netlify.toml','utf8');for(const expected of ['dazzling-khapse-99460c.netlify.app','www.viththiyakaran.co.uk','NEXT_PUBLIC_SITE_URL'])if(!netlify.includes(expected))errors.push(`netlify.toml missing ${expected}`)}
 if(errors.length){console.error(`SEO audit failed with ${errors.length} issue(s):\n- ${errors.join('\n- ')}`);process.exit(1)}
