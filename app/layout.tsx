@@ -15,8 +15,8 @@ export const metadata: Metadata = {
   creator: site.name,
   manifest: '/site.webmanifest',
   icons: {
-    icon: [{ url: '/images/viththiyakaran-icon.png', type: 'image/png', sizes: '256x256' }],
-    apple: [{ url: '/images/viththiyakaran-icon.png', type: 'image/png', sizes: '256x256' }]
+    icon: [{ url: '/images/viththiyakaran-avatar.png', type: 'image/png', sizes: '256x256' }],
+    apple: [{ url: '/images/viththiyakaran-avatar.png', type: 'image/png', sizes: '256x256' }]
   },
   alternates: { types: { 'application/rss+xml': `${site.url}/rss.xml` } },
   formatDetection: { email: false, address: false, telephone: false },
