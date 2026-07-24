@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   manifest: '/site.webmanifest',
+  icons: {
+    icon: [{ url: '/images/viththiyakaran-icon.png', type: 'image/png', sizes: '256x256' }],
+    apple: [{ url: '/images/viththiyakaran-icon.png', type: 'image/png', sizes: '256x256' }]
+  },
   alternates: { types: { 'application/rss+xml': `${site.url}/rss.xml` } },
   formatDetection: { email: false, address: false, telephone: false },
   verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : undefined
